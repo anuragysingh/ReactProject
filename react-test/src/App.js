@@ -3,6 +3,7 @@ import './App.css';
 import Person from './containers/Person/Person';
 import AppHook from './AppHook';
 import Posts from './components/Posts/Posts';
+import NewPost from './components/NewPost/NewPost';
 
 class App extends Component {
 	state = {
@@ -92,6 +93,7 @@ class App extends Component {
 		<Posts />
 		{persons}
         {/* <AppHook /> */}
+		<NewPost />
 			</React.Fragment>
 		);
 	}

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
 import FullPost from '../FullPost/FullPost';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+
+// Only this post will use this custom axios and other request will use global axios
+import axios from '../../axios';
 
 class Posts extends Component {
     state = {
@@ -20,7 +22,7 @@ class Posts extends Component {
         selectedPostId: null
     }
     componentDidMount() {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
+        axios.get("/posts")
             .then(response => {
                 this.setState({
                     rowData: response.data
