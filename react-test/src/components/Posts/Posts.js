@@ -59,6 +59,7 @@ class Posts extends Component {
         }
         return (
             <div>
+                <h2>Post grid demo</h2>
                 <Button onClick={this.togglePostHandler}>
                     Toggle Posts
 		</Button>
