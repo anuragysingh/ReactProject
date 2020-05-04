@@ -4,7 +4,8 @@ First react project for its understanding
 # Used packages
     a. npm install react-bootstrap bootstrap
     b. npm install axios
-    c. npm install --save ag-grid-community ag-grid-react
+    c. npm install --save react-router react-router-dom
+    d. npm install --save ag-grid-community ag-grid-react
 
 # Testing
     a. Jest
