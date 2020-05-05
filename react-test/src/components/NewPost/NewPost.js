@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
+import Input from '../UI/Input/Input';
 
 class NewPost extends Component {
     state = {
@@ -29,9 +30,9 @@ class NewPost extends Component {
         return (
             <div>
                 <Alert variant="primary">Add a new post</Alert>
-                <input type="text" value={this.state.title} onChange={(event)=>this.setState({title: event.target.value})}/>
-                <input type="text" value={this.state.author} onChange={(event)=>this.setState({author: event.target.value})}/>
-                <input type="text" value={this.state.body} onChange={(event)=>this.setState({body: event.target.value})}/>
+                <Input inputtype="input" type="text" placeolder="Enter input"  label="Enter title" value={this.state.title} onChange={(event)=>this.setState({title: event.target.value})}/>
+                <Input inputtype="input" type="text" placeolder="Enter input" label="Enter author" value={this.state.author} onChange={(event)=>this.setState({author: event.target.value})}/>
+                <Input inputtype="textarea" type="textarea" placeolder="Enter input" label="Enter body" value={this.state.body} onChange={(event)=>this.setState({body: event.target.value})}/>
                 <Button onClick={this.postDataHandler}>Post</Button>
             </div>
         );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import FullPost from '../FullPost/FullPost';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -8,6 +7,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 // Only this post will use this custom axios and other request will use global axios
 import axios from '../../axios';
+import { Route, Link } from 'react-router-dom';
+import FullPost from '../FullPost/FullPost';
 
 class Posts extends Component {
     state = {
@@ -32,7 +33,7 @@ class Posts extends Component {
 
     togglePostHandler = () => {
         const doesShow = this.state.showPosts;
-        this.setState({ showPosts: !doesShow });
+        this.setState({ showPosts: !doesShow });        
     }
 
     gridRowSelection = () =>{
@@ -40,6 +41,9 @@ class Posts extends Component {
         const selectedData = selectedNodes.map(node=>node.data);
         const selectedDataId = selectedData.map(node=> node.id);
         this.setState({selectedPostId: selectedDataId[0]});
+
+        // use props.history to navigate to a page programatically
+        this.props.history.push('/'+selectedDataId[0]);
     }
 
     render() {
@@ -66,7 +70,13 @@ class Posts extends Component {
                 <div>
                     <Button onClick={this.gridRowSelection}>Show selected data</Button>
                     {postsDisplay}
-                    <FullPost id={this.state.selectedPostId} />
+                    {/* <Link to={'/'+this.state.selectedPostId}>                        
+                        Selected id: {this.state.selectedPostId} details
+                    </Link> */}
+
+                    {/* Nested routing */}
+                    <Route path="/:id" exact component={FullPost} />
+                  
                 </div>
 
             </div>

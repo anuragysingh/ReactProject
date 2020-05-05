@@ -8,6 +8,7 @@ import Header from './containers/Header/Header';
 class App extends Component {
 	render() {
 		return (
+			// <BrowserRouter basename="/my-app"> to be used in case of any sub directory deployment
 			<BrowserRouter>
 			<React.Fragment>
 				<Header />
