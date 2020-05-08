@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
 import axios from 'axios';
 import Input from '../UI/Input/Input';
@@ -10,7 +11,8 @@ const initialState = {
         author: '',
         titleError:'',
         autorError:'',
-        bodyError: ''
+        bodyError: '',
+        showSpinner:false
 }
 class NewPost extends Component {
     state = initialState;
@@ -27,7 +29,7 @@ class NewPost extends Component {
     }
 
     postDataHandler = (event) => {
-event.preventDefault(); // to prevent form refresh
+        event.preventDefault(); // to prevent form refresh
         const isValid = this.validateForErrors();
         if(isValid){
             const dataToPost = {
@@ -35,25 +37,33 @@ event.preventDefault(); // to prevent form refresh
                 body: this.state.body,
                 author: this.state.author
             }
-    
+            
+            this.setState({showSpinner: true});
             axios.post("/posts", dataToPost)
                 .then(response => {
                     console.log(response);
+                    //not required since set state is returned to initial state
+                    //this.setState({showSpinner: false});
                     // clear the form on sucess validation and post
                 this.setState(initialState);
                 })
-
-                
+                .catch(error=>{
+                    alert(error);
+                });
             }
-        
-    }
-
-    
+    }    
 
     render() {
+        let spinnerDiv=null;
+        if(this.state.showSpinner){
+            spinnerDiv = (<Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>);
+        }
         return (
             <div>
                 <Alert variant="primary">Add a new post</Alert>
+                {spinnerDiv}
                 <form onSubmit={this.postDataHandler}>
                 <Input inputtype="input" type="text" placeolder="Enter input"  label="Enter title" value={this.state.title} onChange={(event)=>this.setState({title: event.target.value})}/>
                 <div style={{color: 'red'}}>
